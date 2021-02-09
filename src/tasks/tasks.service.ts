@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreateTaskDto } from './dto/create-task.dto';
 
 import { Task, TaskStatus } from './task.model';
 
@@ -10,7 +11,8 @@ export class TasksService {
     return this.tasks;
   }
 
-  public createTask(title: string, description: string): Task {
+  public createTask(createTaskDto: CreateTaskDto): Task {
+    const { title, description } = createTaskDto;
     const task: Task = {
       id: `task-${this.tasks.length + 1}`,
       title,
@@ -21,5 +23,5 @@ export class TasksService {
     this.tasks.push(task);
     // it is a good practice to return the newly created resource in a REST API.
     return task;
-  };
+  }
 }
